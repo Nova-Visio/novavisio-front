@@ -1,0 +1,72 @@
+@use '@angular/material' as mat;
+@import "material-colors/dist/colors.var.css";
+@import "@angular/material/theming";
+@include mat.core();
+
+$app-theme: mat.define-light-theme(
+    (
+        color: (
+            primary: mat.define-palette(mat.$deep-orange-palette),
+            accent: mat.define-palette(mat.$deep-purple-palette, 600),
+            warn: mat.define-palette(mat.$red-palette),
+        ),
+    )
+);
+@include mat.all-component-themes($app-theme);
+
+:root {
+    --primary: var(--md-deep-orange-800);
+    --primary-highlight: var(--md-deep-orange-900);
+    --primary-contrast: var(--md-white);
+    --primary-50: var(--md-deep-orange-50);
+    --primary-100: var(--md-deep-orange-100);
+    --primary-200: var(--md-deep-orange-200);
+    --primary-300: var(--md-deep-orange-300);
+    --primary-400: var(--md-deep-orange-400);
+    --primary-500: var(--md-deep-orange-500);
+    --primary-600: var(--md-deep-orange-600);
+    --primary-700: var(--md-deep-orange-700);
+    --primary-800: var(--md-deep-orange-800);
+    --primary-900: var(--md-deep-orange-900);
+    --primary-a100: var(--md-deep-orange-a100);
+    --primary-a200: var(--md-deep-orange-a200);
+    --primary-a400: var(--md-deep-orange-a400);
+    --primary-a700: var(--md-deep-orange-a700);
+    --accent: var(--md-deep-purple-600);
+    --accent-highlight: var(--md-deep-purple-700);
+    --accent-contrast: var(--md-grey-800);
+    --accent-50: var(--md-deep-purple-50);
+    --accent-100: var(--md-deep-purple-100);
+    --accent-200: var(--md-deep-purple-200);
+    --accent-300: var(--md-deep-purple-300);
+    --accent-400: var(--md-deep-purple-400);
+    --accent-500: var(--md-deep-purple-500);
+    --accent-600: var(--md-deep-purple-600);
+    --accent-700: var(--md-deep-purple-700);
+    --accent-800: var(--md-deep-purple-800);
+    --accent-900: var(--md-deep-purple-900);
+    --accent-a100: var(--md-deep-purple-a100);
+    --accent-a200: var(--md-deep-purple-a200);
+    --accent-a400: var(--md-deep-purple-a400);
+    --accent-a700: var(--md-deep-purple-a700);
+    --warn: var(--md-red-500);
+    --warn-highlight: var(--md-red-600);
+    --warn-50: var(--md-red-50);
+    --warn-100: var(--md-red-100);
+    --warn-200: var(--md-red-200);
+    --warn-300: var(--md-red-300);
+    --warn-400: var(--md-red-400);
+    --warn-500: var(--md-red-500);
+    --warn-600: var(--md-red-600);
+    --warn-700: var(--md-red-700);
+    --warn-800: var(--md-red-800);
+    --warn-900: var(--md-red-900);
+    --warn-a100: var(--md-red-a100);
+    --warn-a200: var(--md-red-a200);
+    --warn-a400: var(--md-red-a400);
+    --warn-a700: var(--md-red-a700);
+    --default: var(--md-grey-800);
+    --light: var(--md-grey-400);
+    --toolbar: var(--md-indigo-600);
+    --toolbar-contrast: var(--md-white);
+}

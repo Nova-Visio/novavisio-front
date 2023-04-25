@@ -1,0 +1,14 @@
+{ 
+    "MASTER_PAGE": {
+        "NAV": {
+            "DASHBOARD": "Dashboard",
+            "PRODUCTS_LIST": "Productos",
+            "PRODUCTS_FORM": "Crear producto",
+            "CUSTOMERS_LIST": "Clientes",
+            "ORDERS_LIST": "Pedidos",
+            "LOGOUT": "Cerrar sesión",
+            "VERSION": "Versión"
+        },
+        "USER_TOOLTIP":  "{{username}} {{email}}"
+    }
+}

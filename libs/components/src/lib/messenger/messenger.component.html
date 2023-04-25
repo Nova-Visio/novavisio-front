@@ -1,0 +1,62 @@
+<div class="{{ messengerData?.messengerClass }}">
+    <mat-progress-bar *ngIf="messengerData?.showLinnearProgress"
+                      color="primary"
+                      mode="indeterminate"></mat-progress-bar>
+    <div class="flex flex-col">
+        <h3 *ngIf="messengerData.message?.title"
+            class="text-lg font-medium mb-1"
+            [class.text-center]="!messengerData.message">
+            {{ messengerData.message.title }}
+        </h3>
+        <div class="flex flex-row items-center">
+            <div *ngIf="!!messengerData.type"
+                 [ngClass]="{
+                    'flex-initial mr-4': messengerData.message,
+                    'flex flex-row justify-center flex-1': !messengerData.message
+                }">
+                <mat-icon *ngIf="isError()"
+                          class="text-red-500"
+                          [ngClass]="{
+                        'w-12 h-12 text-5xl': messengerData.message,
+                        'w-32 h-32 text-9xl': !messengerData.message
+                    }">highlight_off</mat-icon>
+                <mat-icon *ngIf="isWarning()"
+                          class="text-yellow-700"
+                          [ngClass]="{
+                        'w-12 h-12 text-5xl': messengerData.message,
+                        'w-32 h-32 text-9xl': !messengerData.message
+                    }">warning</mat-icon>
+                <mat-icon *ngIf="isSuccess()"
+                          class="text-green-500"
+                          [ngClass]="{
+                        'w-12 h-12 text-5xl': messengerData.message,
+                        'w-32 h-32 text-9xl': !messengerData.message
+                    }">check_circle_outline</mat-icon>
+                <mat-icon *ngIf="isInfo()"
+                          class="text-blue-500"
+                          [ngClass]="{
+                        'w-12 h-12 text-5xl': messengerData.message,
+                        'w-32 h-32 text-9xl': !messengerData.message
+                    }">help_outline</mat-icon>
+            </div>
+            <div class="flex-1 text-base flex flex-row"
+                 *ngIf="messengerData.message">
+                <span class="flex-1 content-message"
+                      [innerHTML]="messengerData.message"></span>
+            </div>
+        </div>
+        <div class="flex flex-row justify-end pt-4"
+             *ngIf="messengerData.actions?.length">
+            <button *ngFor="let action of messengerData.actions; first as isFirst"
+                    class="{{ action.actionClass }}"
+                    [class.ml-2]="!isFirst"
+                    [class.flex-1]="messengerData.actions.length === 1"
+                    mat-button
+                    color="{{ action.pallete }}"
+                    tabindex="-1"
+                    [mat-dialog-close]="action.value">
+                {{ action.text }}
+            </button>
+        </div>
+    </div>
+</div>

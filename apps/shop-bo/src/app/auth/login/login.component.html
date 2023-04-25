@@ -1,0 +1,35 @@
+<div class="min-h-screen flex flex-col justify-center items-center">
+
+  <div class="w-full max-w-lg px-4 py-2">
+
+    <mat-card>
+
+      <!-- Barra de progreso. -->
+      <div class="h-1">
+        <mat-progress-bar *ngIf="loading$ | async"
+                          class="rounded-t"
+                          color="accent"
+                          mode="indeterminate"></mat-progress-bar>
+      </div>
+
+      <mat-card-content class="flex flex-col">
+
+        <!-- Logo del brand. -->
+        <img class="m-auto my-4"
+             src="assets/images/logo.png" />
+
+        <h4 class="at-card-title mb-2">
+          {{ 'LOGIN.HINT' | translate }}
+        </h4>
+
+        <nv-login-form class="flex flex-col flex-1"
+                       [loading]="loading$ | async"
+                       submitColor="accent"
+                       formFieldColor="accent"
+                       (submitLogin)="login($event)">
+        </nv-login-form>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

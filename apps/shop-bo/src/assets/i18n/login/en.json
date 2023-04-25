@@ -1,0 +1,23 @@
+{
+  "HINT": "Ingrese sus credenciales",
+  "USERNAME": {
+      "LABEL": "Usuario",
+      "ERROR": {
+          "REQUIRED": "Debe ingresar el nombre de usuario."
+      }
+  },
+  "PASSWORD": {
+      "LABEL": "Contraseña",
+      "ERROR": {
+          "REQUIRED": "Debe ingresar la contraseña."
+      }
+  },
+  "SUBMIT": "Ingresar",
+  "REGISTER": {
+      "QUESTION": "¿No tiene una cuenta de usuario?",
+      "BTN": "Crear cuenta"
+  },
+  "ERROR": {
+      "CREDENTIALS": "Las credenciales ingresadas son incorrectas. Por favor, intente nuevamente."
+  }
+}

@@ -1,0 +1,110 @@
+<div class="h-screen flex flex-col">
+    <mat-toolbar class="flex flex-row items-center"
+                 color="accent">
+        <button mat-icon-button
+                (click)="toggleSidenav()">
+            <mat-icon>menu</mat-icon>
+        </button>
+
+        <!-- Logo del brand. -->
+        <img class="ml-4 h-14"
+             src="assets/images/logo.png" />
+
+        <div class="flex-1 flex flex-row justify-end">
+
+            <!-- Información del usuario. -->
+            <button class="hidden tablet:block"
+                    [matTooltip]="'MASTER_PAGE.USER_TOOLTIP' | translate :
+                    {
+                        username: (username$ | async),
+                        email: (userEmail$ | async)
+                    }"
+                    mat-icon-button>
+                <img src="assets/images/default-profile-picture.jpg"
+                     class="w-6 h-6 rounded-full " />
+                <!-- <mat-icon [matTooltip]="'MASTER_PAGE.USER_TOOLTIP' | translate :
+                    {
+                        username: (username$ | async),
+                        email: (userEmail$ | async)
+                    }">
+                    account_circle
+                </mat-icon> -->
+            </button>
+        </div>
+
+    </mat-toolbar>
+
+    <mat-sidenav-container class="flex-1 flex flex-col">
+
+        <!-- Main Nav -->
+
+        <mat-sidenav [mode]="sidenavMode"
+                     [opened]="openedSidenav$ | async"
+                     (openedChange)="sidenavOpenedChange($event)"
+                     class="pt-0 flex-col master-page__nav flex-1"
+                     #sidenav>
+
+            <!-- Información del usuario. -->
+            <div class="p-4 flex flex-col bg-primary text-primary-contrast">
+
+                <!-- Foto del conductor Y botón para activar protocolo. -->
+                <img src="assets/images/default-profile-picture.jpg"
+                     class="w-16 h-16 rounded-full mb-4" />
+
+                <!-- Nombre y apellido. -->
+                <span class="text-base font-medium">{{ username$ | async }}</span>
+
+                <!-- Email. -->
+                <span class="text-xs my-1">{{ userEmail$ | async }}</span>
+
+            </div>
+
+            <div class="flex-1 flex flex-col overflow-auto justify-between">
+                <mat-nav-list class="pt-0">
+                    <mat-list-item *ngFor="let item of (navItems$ | async)"
+                                   [disabled]="item.disabled"
+                                   (click)="selectNavItem(item)"
+                                   [class.border-grey-300]="item.divider"
+                                   [class.border-b]="item.divider">
+                        <a class="flex flex-row items-center">
+                            <mat-icon *ngIf="item.icon"
+                                      [ngClass]="{'at-icon-default':!item.disabled, 'material-icons-outlined':!item.disabled, 'text-grey-400':item.disabled}"
+                                      matBadgeColor="accent"
+                                      matBadgeSize="small"
+                                      [matBadge]="item.badge"
+                                      matBadgePosition="above after">
+                                {{item.icon}}
+                            </mat-icon>
+                            <mat-icon *ngIf="item.svgIcon"
+                                      [ngClass]="{'at-icon-default':!item.disabled, 'text-grey-400':item.disabled}"
+                                      matBadgeColor="accent"
+                                      matBadgeSize="small"
+                                      [matBadge]="item.badge"
+                                      matBadgePosition="above after"
+                                      [svgIcon]="item.svgIcon">
+                            </mat-icon>
+                            <span class="ml-2 text-sm pr-9"
+                                  [class.text-grey-400]="item.disabled"> {{item.keyTranslate | translate }} </span>
+                        </a>
+                        <!-- <mat-divider [inset]="true"
+                                     *ngIf="item.divider"></mat-divider> -->
+                    </mat-list-item>
+                </mat-nav-list>
+                <div class="mb-4 mt-2"
+                     *ngIf="(appVersion$ | async) as appVersion">
+                    <span mat-list-item
+                          class="text-sm ml-4">
+                        {{ 'MASTER_PAGE.NAV.VERSION' | translate}}: {{appVersion}}
+                    </span>
+                </div>
+            </div>
+        </mat-sidenav>
+
+        <mat-sidenav-content>
+
+            <!-- Contenido  -->
+            <ng-content></ng-content>
+
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

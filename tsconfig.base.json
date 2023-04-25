@@ -1,0 +1,28 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "strictNullChecks": false,
+    "baseUrl": ".",
+    "paths": {
+      "@novavisio/api-gateway": ["libs/api-gateway/src/index.ts"],
+      "@novavisio/auth": ["libs/auth/src/index.ts"],
+      "@novavisio/components": ["libs/components/src/index.ts"],
+      "@novavisio/core": ["libs/core/src/index.ts"],
+      "@novavisio/interfaces": ["libs/interfaces/src/index.ts"],
+      "@novavisio/mocks": ["libs/mocks/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

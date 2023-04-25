@@ -1,0 +1,790 @@
+@tailwind base;
+@tailwind utilities;
+@tailwind components;
+@tailwind variants;
+
+// for npm roboto-fontface package (to load local files)
+$roboto-font-path: "~roboto-fontface/fonts" !default;
+@import "roboto-fontface/css/roboto/sass/roboto-fontface.scss";
+
+// for npm material-icons package (to load local files)
+$material-icons-font-path: "~material-icons/iconfont/";
+@import "material-icons/iconfont/material-icons.scss";
+
+@layer base {
+
+  body,
+  html {
+      height: 100%;
+      font-family: Roboto, sans-serif;
+      @apply text-default;
+  }
+
+  body {
+      margin: 0;
+  }
+
+  *:not(.mat-button-wrapper) {
+      outline: none !important;
+  }
+
+  // Cambia el color de fondo que deja el autofill en inputs.
+  // Ref: https://stackoverflow.com/questions/2781549/removing-input-background-colour-for-chrome-autocomplete/29350537#29350537.
+  input:-webkit-autofill,
+  input:-webkit-autofill:active,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:hover {
+      transition: background-color 5000s ease-in-out 0s;
+  }
+
+  input[type="time"]::-webkit-calendar-picker-indicator,
+  input:-internal-autofill-selected {
+      background: none;
+  }
+
+  // Texto de botones en mayúscula.
+  button.mat-button,
+  button.mat-stroked-button,
+  button.mat-raised-button,
+  button.mat-flat-button {
+      @apply uppercase;
+  }
+}
+
+// Se cambia el font-family de los componentes de angular material.
+mat-form-field,
+mat-label,
+.mat-list-item,
+.mat-card,
+mat-table,
+.mat-drawer {
+    *:not(mat-icon) {
+        font-family: Roboto, sans-serif;
+    }
+}
+
+// Formularios
+form {
+    section {
+        &:not(:last-of-type) {
+            @apply pb-2;
+        }
+
+        &:last-of-type {
+            @apply pt-2;
+        }
+    }
+}
+
+
+.mat-form-field.nv-form-field {
+  display: flex;
+  flex-direction: column;
+  @apply tablet:flex-row;
+  // @include media-breakpoint-up('md') {
+  //   flex-direction: row;
+  // }
+
+  mat-form-field {
+    @apply flex-1;
+    // flex: 1 1 0%;
+
+    &:first-child+* {
+      @apply tablet:ml-3;
+      // @include media-breakpoint-up('md') {
+      //   @include add_margin('l' 3);
+      // }
+    }
+
+    &.form-field-has-hint {
+      @apply pb-3;
+      // @include add_padding('b' 3);
+    }
+  }
+
+  .item-field-space {
+    @apply hidden flex-1 tablet:flex;
+
+    // display: none;
+    // flex: 1 1 0%;
+
+    // @include media-breakpoint-up('md') {
+    //   display: flex;
+    // }
+  }
+}
+// Estilo personalizado de input at-form-field.
+mat-form-field.nv-form-field.mat-form-field-appearance-outline {
+
+    // Se quita opacidad al control (viene por defecto en los outline.
+    .mat-form-field-outline-thick {
+        @apply opacity-100 text-transparent;
+    }
+    .mat-form-field-outline-end,
+    .mat-form-field-outline-gap,
+    .mat-form-field-outline-start {
+        border: 1px solid transparent;
+    }
+    &.mat-focused,
+    &:not(.mat-form-field-disabled):hover {
+        & > .mat-form-field-outline-start,
+        & > .mat-form-field-outline-end
+        & > .mat-form-field-outline-gap {
+            border: 2px solid currentColor;
+        }
+
+        .mat-form-field-outline-start {
+            border-right-style: none;
+        }
+        .mat-form-field-outline-end {
+            border-left-style: none;
+        }
+        .mat-form-field-outline-gap {
+            border-right-style: none;
+            border-left-style: none;
+        }
+    }
+
+    .mat-form-field-wrapper {
+        .mat-form-field-flex {
+            // Deja fijo el label.
+            .mat-form-field-infix {
+                padding: 15px 0px !important;
+                .mat-form-field-label-wrapper {
+                    top: -0.2em !important;
+                    padding-top: 0.2em !important;
+                }
+            }
+            // Redondeado de bordes.
+            .mat-form-field-outline {
+                @apply rounded-md;
+            }
+        }
+    }
+    // Estilos para achicar campos que no tienen label.
+    &:not(.mat-form-field-has-label) {
+        .mat-form-field-wrapper {
+            @apply pb-1;
+            .mat-form-field-infix {
+                @apply border-t-4;
+
+                .mat-select-arrow-wrapper {
+                    @apply transform translate-y-0;
+                }
+            }
+        }
+    }
+    // Estilos para achicar campos que no tienen hint / errores.
+    &:not(.has-hint) {
+        .mat-form-field-wrapper {
+            @apply pb-1;
+        }
+    }
+    // Estilos para estirar campos que tienen hint / errores.
+    &.has-hint,
+    &.mat-form-field-invalid.has-error {
+        .mat-form-field-wrapper {
+            @apply pb-7;
+            .mat-form-field-subscript-wrapper {
+                top: auto !important;
+            }
+        }
+    }
+
+    // Estilos para campo con errores
+    &.mat-form-field-invalid {
+        &:not(.mat-form-field-disabled):hover:not(.mat-focused),
+        &.mat-focused {
+            .mat-form-field-flex {
+                .mat-form-field-label {
+                    @apply text-red-500;
+                }
+            }
+        }
+        &:not(.mat-form-field-disabled):hover:not(.mat-focused) {
+            .mat-form-field-flex {
+                .mat-form-field-outline {
+                    @apply text-red-200;
+                }
+            }
+        }
+        &.mat-focused {
+            .mat-form-field-flex {
+                .mat-form-field-outline {
+                    @apply text-red-500;
+                }
+            }
+        }
+
+        .mat-form-field-outline-thick {
+            background-color: rgba(244, 67, 54, 0.05);
+        }
+    }
+    // Estilos para campo sin errores
+    &:not(.mat-form-field-invalid) {
+        // Color default
+        &:not([color]):not([ng-reflect-color]):not(.mat-accent):not(.mat-warn) {
+            &.mat-focused {
+                .mat-form-field-label {
+                    @apply text-primary;
+                }
+                .mat-form-field-flex {
+                    .mat-form-field-outline {
+                        @apply text-primary;
+                    }
+                }
+            }
+        }
+
+        // COLORES DEL TEMA.
+
+        // Primary
+        &[color="primary"],
+        &[ng-reflect-color="primary"],
+        &.mat-primary {
+            &.mat-focused {
+                .mat-form-field-flex {
+                    .mat-form-field-outline,
+                    .mat-form-field-label {
+                        @apply text-primary;
+                    }
+                }
+            }
+        }
+        // Accent
+        &[color="accent"],
+        &[ng-reflect-color="accent"],
+        &.mat-accent {
+            &.mat-focused {
+                .mat-form-field-flex {
+                    .mat-form-field-outline,
+                    .mat-form-field-label {
+                        @apply text-accent;
+                    }
+                }
+            }
+            // Warn
+            &[color="warn"],
+            &[ng-reflect-color="warn"],
+            &.mat-warn {
+                &.mat-focused,
+                .mat-form-field-flex {
+                    .mat-form-field-outline,
+                    .mat-form-field-label {
+                        @apply text-warn;
+                    }
+                }
+            }
+        }
+
+        // Background del input.
+        .mat-form-field-outline-thick {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        // Color de hover.
+        &:not(.mat-form-field-disabled):hover:not(.mat-focused) {
+            .mat-form-field-flex {
+                .mat-form-field-outline {
+                    @apply text-light #{!important};
+                }
+            }
+        }
+        // Color del ícono suffix.
+        .mat-form-field-suffix {
+            @apply nv-icon-default;
+        }
+
+        // COLORES CUSTOM.
+
+        // Verde
+        &[color="green"],
+        &[ng-reflect-color="green"],
+        &.mat-green {
+            &.mat-focused {
+                .mat-form-field-flex {
+                    .mat-form-field-outline,
+                    .mat-form-field-label {
+                        @apply text-green-500 #{!important};
+                    }
+                }
+            }
+            .mat-form-field-suffix {
+                @apply text-green-500 #{!important};
+            }
+            .mat-form-field-outline-thick {
+                background-color: rgba(76, 175, 80, 0.05) !important;
+            }
+        }
+        // Rosa
+        &[color="pink"],
+        &[ng-reflect-color="pink"],
+        &.mat-pink {
+            &.mat-focused,
+            &:not(.mat-form-field-disabled):hover {
+                .mat-form-field-flex {
+                    .mat-form-field-outline {
+                        @apply text-pink-600 #{!important};
+                    }
+                }
+            }
+            .mat-form-field-suffix {
+                @apply nv-icon-default #{!important};
+            }
+            .mat-form-field-outline-thick {
+                background-color: rgba(0, 0, 0, 0.05) !important;
+            }
+        }
+        // Indigo
+        &[color="indigo"],
+        &[ng-reflect-color="indigo"],
+        &.mat-indigo {
+            &.mat-focused,
+            &:not(.mat-form-field-disabled):hover {
+                .mat-form-field-flex {
+                    .mat-form-field-outline,
+                    .mat-form-field-label {
+                        @apply text-indigo-500 #{!important};
+                    }
+                }
+            }
+            .mat-form-field-suffix {
+                @apply text-indigo-500 #{!important};
+            }
+            .mat-form-field-outline-thick {
+                background-color: rgba(63, 81, 181, 0.05) !important;
+            }
+        }
+        // Naranja
+        &[color="orange"],
+        &[ng-reflect-color="orange"],
+        &.mat-orange {
+            &.mat-focused,
+            &:not(.mat-form-field-disabled):hover {
+                .mat-form-field-flex {
+                    .mat-form-field-outline,
+                    .mat-form-field-label {
+                        @apply text-orange-500 #{!important};
+                    }
+                }
+            }
+            .mat-form-field-suffix {
+                @apply text-orange-500 #{!important};
+            }
+            .mat-form-field-outline-thick {
+                background-color: rgba(255, 152, 0, 0.05) !important;
+            }
+        }
+        // Azul
+        &[color="blue"],
+        &[ng-reflect-color="blue"],
+        &.mat-blue {
+            &.mat-focused,
+            &:not(.mat-form-field-disabled):hover {
+                .mat-form-field-flex {
+                    .mat-form-field-outline,
+                    .mat-form-field-label {
+                        @apply text-blue-500 #{!important};
+                    }
+                }
+            }
+            .mat-form-field-suffix {
+                @apply text-blue-500 #{!important};
+            }
+            .mat-form-field-outline-thick {
+                background-color: rgba(33, 150, 243, 0.05) !important;
+            }
+        }
+    }
+}
+// Sobreescribe el ancho por defecto de los form-field de Angular Material.
+.mat-form-field-infix {
+    width: auto !important;
+}
+
+// Sobreescribe el alto por defecto de los options de Angular Material.
+.mat-option {
+    @apply leading-10 h-10 #{!important};
+}
+
+// Sobreescribe el color por defecto de los iconos de Angular Material.
+// mat-icon {
+//     @apply inline-flex items-center justify-center align-middle #{!important};
+//     svg {
+//         @apply fill-current;
+//     }
+// }
+// this is the parent span angular inserts for icon inside mat-fab
+// .mat-fab,
+// .mat-icon-button {
+//     .mat-button-wrapper {
+//         @apply flex justify-center #{!important};
+//     }
+// }
+
+.mat-expansion-panel {
+    .mat-expansion-panel-content {
+        @apply overflow-auto text-base;
+    }
+    mat-icon {
+        svg {
+            @apply fill-current;
+        }
+    }
+}
+
+// Sobreescribe el tamaño del texto de los tooltip.
+.mat-mdc-tooltip-panel {
+    .mdc-tooltip {
+        @apply text-xs whitespace-pre-line;
+    }
+}
+
+.mat-expansion-indicator::after {
+    @apply nv-icon-default;
+}
+
+// Estilos para títulos de secciones.
+.nv-section-title {
+    @apply text-base;
+}
+
+// Estilos para títulos de información.
+.nv-item-title {
+    @apply text-light text-xs font-normal;
+}
+
+// Estilos para títulos de información.
+.nv-title {
+    @apply text-xl font-medium;
+}
+
+// Card
+mat-card {
+    &.nv-card-no-padding {
+        @apply p-0;
+
+        .nv-card-padding {
+            @apply p-4;
+        }
+        .nv-card-padding-x {
+            @apply px-4;
+        }
+        .nv-card-padding-y {
+            @apply py-4;
+        }
+        .nv-card-padding-t {
+            @apply pt-4;
+        }
+        .nv-card-padding-r {
+            @apply pr-4;
+        }
+        .nv-card-padding-b {
+            @apply pb-4;
+        }
+        .nv-card-padding-l {
+            @apply pl-4;
+        }
+    }
+    &.nv-card-margin {
+        @apply m-4;
+    }
+    &.nv-card-margin-x {
+        @apply tablet:mx-4;
+    }
+
+    &.nv-card {
+        width: calc(100% - 32px);
+        @apply min-w-full tablet:min-w-0 max-w-full rounded-none tablet:my-4 tablet:rounded tablet:mx-auto;
+
+        &-left {
+            @apply tablet:ml-4;
+        }
+        &-center {
+            @apply tablet:mx-auto;
+        }
+        &-right {
+            @apply tablet:mr-4;
+        }
+        &-xs {
+            @apply tablet:max-w-xs;
+        }
+        &-sm {
+            @apply tablet:max-w-sm;
+        }
+        &-md {
+            @apply tablet:max-w-md;
+        }
+        &-lg {
+            @apply tablet:max-w-lg;
+        }
+        &-xl {
+            @apply tablet:max-w-xl;
+        }
+        &-2xl {
+            @apply tablet:max-w-2xl;
+        }
+        &-3xl {
+            @apply tablet:max-w-3xl;
+        }
+        &-4xl {
+            @apply tablet:max-w-4xl;
+        }
+        &-5xl {
+            @apply tablet:max-w-5xl;
+        }
+        &-6xl {
+            @apply tablet:max-w-6xl;
+        }
+        .nv-card-loading {
+            @apply rounded-t overflow-hidden;
+        }
+
+        .nv-card-title {
+            @apply text-lg font-medium tablet:text-xl;
+        }
+
+        .nv-card-subtitle {
+            @apply text-base tablet:text-lg;
+        }
+    }
+}
+
+// Dialog
+.nv-dialog-title {
+    @apply text-xl;
+}
+.nv-dialog {
+    @apply flex flex-col min-w-full min-h-full py-0 tablet:min-w-0 tablet:min-h-0 tablet:py-8;
+
+    .mat-dialog-container {
+        @apply flex flex-col flex-1 rounded-none tablet:rounded;
+        & > * {
+            @apply flex flex-col flex-1;
+        }
+    }
+
+    &-no-padding {
+        .mat-dialog-container {
+            @apply p-0 #{!important};
+        }
+        .nv-dialog-padding {
+            @apply p-6 #{!important};
+        }
+        .nv-dialog-padding-x {
+            @apply px-6 #{!important};
+        }
+        .nv-dialog-padding-b {
+            @apply pb-6 #{!important};
+        }
+        .nv-dialog-padding-t {
+            @apply pt-6 #{!important};
+        }
+    }
+
+    &-full {
+        @apply tablet:min-w-full tablet:min-h-full tablet:py-0;
+        .mat-dialog-container {
+            @apply tablet:rounded-none;
+        }
+    }
+
+    &-no-scroll {
+        .mat-dialog-container {
+            @apply overflow-hidden p-0;
+            & > * {
+                @apply overflow-hidden;
+            }
+        }
+    }
+
+    &-alert {
+        @apply w-10/12 max-w-xl #{!important};
+    }
+
+    &-xs {
+        width: calc(100% - 32px);
+        @apply tablet:max-w-xs #{!important};
+    }
+    &-sm {
+        width: calc(100% - 32px);
+        @apply tablet:max-w-sm #{!important};
+    }
+    &-md {
+        width: calc(100% - 32px);
+        @apply tablet:max-w-md #{!important};
+    }
+    &-lg {
+        width: calc(100% - 32px);
+        @apply tablet:max-w-lg #{!important};
+    }
+    &-xl {
+        width: calc(100% - 32px);
+        @apply tablet:max-w-xl #{!important};
+    }
+    &-2xl {
+        width: calc(100% - 32px);
+        @apply tablet:max-w-2xl #{!important};
+    }
+    &-3xl {
+        width: calc(100% - 32px);
+        @apply tablet:max-w-3xl #{!important};
+    }
+    &-4xl {
+        width: calc(100% - 32px);
+        @apply tablet:max-w-4xl #{!important};
+    }
+    &-5xl {
+        width: calc(100% - 32px);
+        @apply tablet:max-w-5xl #{!important};
+    }
+    &-6xl {
+        width: calc(100% - 32px);
+        @apply tablet:max-w-6xl #{!important};
+    }
+}
+.device-with-status-bar {
+    .nv-dialog {
+        mat-dialog-container {
+            @apply pt-9 #{!important};
+        }
+    }
+}
+
+// Paginator
+mat-paginator {
+    .mat-paginator-range-label {
+        @apply mx-4 tablet:mx-6;
+    }
+}
+
+// Sidenav
+mat-sidenav-container {
+    mat-sidenav {
+        &.nv-sidenav-padding,
+        .nv-sidenav-padding {
+            @apply p-4;
+        }
+
+        .nv-sidenav-title {
+            @apply text-xl font-medium;
+        }
+    }
+}
+
+// Drawer
+mat-drawer-container {
+    mat-drawer {
+        &.nv-drawer-padding,
+        .nv-dialog-padding {
+            @apply p-4;
+        }
+
+        .nv-drawer-title {
+            @apply text-xl;
+        }
+    }
+}
+
+// Toolbar
+mat-toolbar:not(.mat-toolbar-multiple-rows) {
+    @apply h-14;
+}
+
+.device-with-status-bar {
+    mat-toolbar:not(.mat-toolbar-multiple-rows) {
+        @apply h-20 pt-9;
+    }
+}
+
+// Íconos
+.nv-icon-default {
+    @apply text-grey-600 #{!important};
+}
+
+.mat-expansion-panel-header[aria-disabled="true"],
+.mat-button-disabled {
+    .nv-icon-default {
+        @apply text-grey-300 #{!important};
+    }
+}
+
+// Estado de carga
+.nv-loading-label {
+    @apply text-sm;
+}
+
+// Tablas
+mat-cell:first-of-type,
+mat-header-cell:first-of-type,
+mat-footer-cell:first-of-type,
+mat-cell:last-of-type,
+mat-header-cell:last-of-type,
+mat-footer-cell:last-of-type {
+    @apply px-0 #{!important};
+}
+
+// Estilo para scan QR
+body.scanner-enabled {
+    background-color: transparent !important;
+    app-root * {
+        opacity: 0;
+    }
+
+    mat-dialog-container {
+        background-color: transparent !important;
+        opacity: 0;
+    }
+
+    .nv-dialog-scanner {
+        mat-dialog-container {
+            opacity: 1;
+        }
+    }
+}
+
+// messenger
+.nv-single-message {
+    .content-message {
+        @apply p-4;
+    }
+}
+
+.mat-drawer-inner-container {
+    display: flex;
+    flex-direction: column;
+}
+
+@keyframes grow {
+    0% {
+        -webkit-transform: scale(0.1);
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+    }
+}
+
+@keyframes grow {
+    0% {
+        transform: scale(0.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes active {
+    0% {
+        transform: scale(0.1);
+        opacity: 1;
+    }
+    70% {
+        transform: scale(2.5);
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
